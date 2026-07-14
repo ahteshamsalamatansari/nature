@@ -242,7 +242,10 @@
       // Get all generated word spans
       const wordSpans = document.querySelectorAll('.word-span');
 
-      // 4. Video scrubbing and scrolling animations setup
+      // 4. Mobile / Tablet Check (Touch-based or small screens)
+      const isMobile = window.matchMedia('(max-width: 1024px)').matches || ('ontouchstart' in window);
+
+      // Video scrubbing and scrolling animations setup
       let video = null;
       let targetTime = 0;
       let currentTime = 0;
@@ -265,6 +268,12 @@
         video.playsInline = true;
         video.autoplay = true;
 
+        if (isMobile) {
+          // On mobile, let the video loop continuously at normal speed (bypasses browser scroll seek limitations)
+          video.setAttribute('loop', '');
+          video.loop = true;
+        }
+
         video.addEventListener('loadedmetadata', () => {
           console.log("Scroll video metadata loaded. Duration:", video.duration);
           
@@ -274,12 +283,19 @@
           // Recalculate targetTime now that the duration is officially loaded
           onScroll();
           
-          // Attempt to briefly play and pause the video to initialize the browser's hardware video decoder
-          video.play().then(() => {
-            video.pause();
-          }).catch(err => {
-            console.log("Dynamic play initialization prevented by browser, but scroll scrubbing seeking is still fully functional:", err);
-          });
+          if (isMobile) {
+            // Keep playing continuously on mobile
+            video.play().catch(err => {
+              console.log("Autoplay was blocked by browser. Showing static poster fallback.", err);
+            });
+          } else {
+            // Attempt to briefly play and pause the video on desktop to initialize the hardware video decoder
+            video.play().then(() => {
+              video.pause();
+            }).catch(err => {
+              console.log("Dynamic play initialization prevented by browser, but scroll scrubbing seeking is still fully functional:", err);
+            });
+          }
         });
 
         video.src = 'background_scrub.mp4';
@@ -294,8 +310,8 @@
       let targetTranslateY = 0;
 
       function render() {
-        // Video scrub interpolation: Ensure video is loaded, ready (state >= 2), and duration is finite
-        if (video && !isNaN(video.duration) && video.readyState >= 2) {
+        // Video scrub interpolation: Only seek on desktop. ReadyState >= 1 (HAVE_METADATA) is seekable.
+        if (video && !isMobile && !isNaN(video.duration) && video.readyState >= 1) {
           currentTime += (targetTime - currentTime) * ease;
           if (isNaN(currentTime)) currentTime = 0;
           
@@ -387,8 +403,8 @@
         // Update progress bar
         progressBar.style.width = `${scrollFraction * 100}%`;
 
-        // Update scroll target time for video: Ensure duration is not NaN to prevent NaN propagation and crashes
-        if (video && !isNaN(video.duration)) {
+        // Update scroll target time for video (Desktop only): Ensure duration is not NaN to prevent NaN propagation and crashes
+        if (video && !isMobile && !isNaN(video.duration)) {
           targetTime = scrollFraction * video.duration;
         } else {
           targetTime = 0;
