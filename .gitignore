@@ -14,3 +14,10 @@ dist/
 
 # Large Original Video Assets
 adventurers-inn-day-light-3840x1606-09.mp4
+
+*.mp4
+
+
+public/frames/
+scratch/
+
