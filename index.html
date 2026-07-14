@@ -253,17 +253,29 @@
         video = document.createElement('video');
         video.className = 'video-background';
         video.id = 'bg-video';
+        
+        // Ensure browser respects inline autoplay mute standard policies (especially Safari and Mobile devices)
+        video.setAttribute('playsinline', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('preload', 'auto');
+        
+        // Match JS properties to reflect attributes
         video.muted = true;
         video.playsInline = true;
-        video.loop = false; // Scroll controls loop manually or limits boundaries
-        video.preload = 'auto';
+        video.autoplay = true;
 
         video.addEventListener('loadedmetadata', () => {
           console.log("Scroll video metadata loaded. Duration:", video.duration);
-          // Briefly play and pause video to initialize decoder
+          
+          // Display the video container immediately once metadata is ready
+          video.classList.add('playing');
+          
+          // Attempt to briefly play and pause the video to initialize the browser's hardware video decoder
           video.play().then(() => {
             video.pause();
-            video.classList.add('playing');
+          }).catch(err => {
+            console.log("Dynamic play initialization prevented by browser, but scroll scrubbing seeking is still fully functional:", err);
           });
         });
 
@@ -285,7 +297,12 @@
           // Clamp time
           if (currentTime < 0) currentTime = 0;
           if (currentTime > video.duration - 0.05) currentTime = video.duration - 0.05;
-          video.currentTime = currentTime;
+          
+          // CRITICAL SEEK PERFORMANCE OPTIMIZATION: Only update the video's currentTime if it has changed by a visible amount (>= 1ms).
+          // This prevents flooding the browser with redundant seek requests on static screens (reducing CPU/GPU usage to zero and preventing hangs in Safari).
+          if (Math.abs(video.currentTime - currentTime) > 0.001) {
+            video.currentTime = currentTime;
+          }
         }
 
         // Parallax transform calculations
