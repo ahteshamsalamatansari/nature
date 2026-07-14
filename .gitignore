@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Vite / Build outputs
+dist/
+.vite/
+.vite-inspect/
+
+# Large Original Video Assets
+adventurers-inn-day-light-3840x1606-09.mp4
