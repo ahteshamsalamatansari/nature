@@ -242,8 +242,8 @@
       // Get all generated word spans
       const wordSpans = document.querySelectorAll('.word-span');
 
-      // 4. Mobile / Tablet Check (Touch-based or small screens)
-      const isMobile = window.matchMedia('(max-width: 1024px)').matches || ('ontouchstart' in window);
+      // 4. Mobile / Tablet Check (Avoid false-positives on touchscreen desktop/laptops)
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
 
       // Video scrubbing and scrolling animations setup
       let video = null;
