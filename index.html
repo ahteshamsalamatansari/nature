@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stillness in Nature | Immersive Experience</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="A scroll-driven, cinematic visual journey exploring the serenity of nature through moving images and timeless quotes.">
+  <meta name="keywords" content="Nature, Stillness, Parallax, Video Scroll, John Muir, Lao Tzu, Serenity">
+  
+  <meta property="og:title" content="Stillness in Nature | Immersive Experience">
+  <meta property="og:description" content="A scroll-driven, cinematic visual journey exploring the serenity of nature.">
+  <meta property="og:image" content="poster.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Top Progress Indicator -->
+  <div class="progress-bar-container" aria-hidden="true">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- Immersive Fixed Background Media Layer -->
+  <div class="background-media-fixed" id="bg-media-container">
+    <!-- Instant Base64 Blurred Thumbnail -->
+    <img 
+      id="blur-placeholder"
+      class="blur-placeholder" 
+      src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgABoAGzAAD//gAQTGF2YzYyLjI4LjEwMQD/2wBDAAgEBAQEBAUFBQUFBQYGBgYGBgYGBgYGBgYHBwcICAgHBwcGBgcHCAgICAkJCQgICAgJCQoKCgwMCwsODg4RERT/xAB4AAEBAQEAAAAAAAAAAAAAAAAGBQcEAQEBAQAAAAAAAAAAAAAAAAADAAIQAAIBBAECBQIHAQEAAAAAAAECAwQRBRIAIRMiMQZBFFFUo3GSByPSMkIzEQACAgIBRLIDIAITEFQVEiE6FhFP/AABEIABAAKAMBIgACEQADEQD/2gAMAwEAAhEDEQA/AMy9K46urMxTMNpHTxaoQSdP8gDYFtf+R1vzdZMh6Ky1NjarJRfFrKqAtURUyqJhKP81lnVASfGrag2Jv1t5cwbBmso8pDIYaholcFlhkjZhby1Ice59vPjKLJVtZk6KdKOqplmh7EzvTz9RNKwuQ3hDrHc6G4Ptfpyryb6rm/zvBKKECMO4npAPAyBRZjVI4R12bfaPp0BB+Yn2OLPSdXhZc1IcsHWhkqZooVL27ej3j7uouFZL7BPewvy9kcP6JrspXY6GtghbT+KKfX4kjAbPEkzMbhQL26m31twR8VqGlrKWOvhqOwRJUPBHUxyGOPcWieIxKpAK9JLMG6Hkp69kpkBk+O8ErTwzTxsI4rsxI1klLSMdyAFPQeduSeT8pjgNYzFTYwl5iJMiG9A9j8cO3C8dajIv499AwCkg7BYA2U+x++vJf7nY3CJk6uTHQLJqyx3jYi7QkqXVV6duQL4S3i1624Q1k+yb9TcU5avo6+olaSVTLKWmugXRSwN7lW/K6gFvpzg7NP9xF+P/XmLMvHNjNY2rMSzAD6yfj+cOunJx0WsbwAIlpI6diT35//Z" 
+      alt="" 
+      aria-hidden="true"
+    >
+
+    <!-- High Quality Poster Image -->
+    <img 
+      id="hq-poster"
+      class="poster-image" 
+      src="poster.jpg" 
+      alt="Cinematic mountains in golden daylight"
+    >
+  </div>
+
+  <!-- Minimal Floating Dot HUD Navigation -->
+  <nav class="minimal-nav" id="hud-nav" aria-label="Page navigation">
+    <a href="#section-1" class="nav-dot-container active" data-section="0"><span class="nav-label">John Muir</span><div class="nav-dot"></div></a>
+    <a href="#section-2" class="nav-dot-container" data-section="1"><span class="nav-label">Albert Einstein</span><div class="nav-dot"></div></a>
+    <a href="#section-3" class="nav-dot-container" data-section="2"><span class="nav-label">Jane Austen</span><div class="nav-dot"></div></a>
+    <a href="#section-4" class="nav-dot-container" data-section="3"><span class="nav-label">John Muir</span><div class="nav-dot"></div></a>
+    <a href="#section-5" class="nav-dot-container" data-section="4"><span class="nav-label">Lao Tzu</span><div class="nav-dot"></div></a>
+    <a href="#section-6" class="nav-dot-container" data-section="5"><span class="nav-label">Rembrandt</span><div class="nav-dot"></div></a>
+    <a href="#section-7" class="nav-dot-container" data-section="6"><span class="nav-label">William Shakespeare</span><div class="nav-dot"></div></a>
+    <a href="#section-8" class="nav-dot-container" data-section="7"><span class="nav-label">Ralph Waldo Emerson</span><div class="nav-dot"></div></a>
+    <a href="#section-9" class="nav-dot-container" data-section="8"><span class="nav-label">Leigh Hunt</span><div class="nav-dot"></div></a>
+    <a href="#section-10" class="nav-dot-container" data-section="9"><span class="nav-label">Katrina Mayer</span><div class="nav-dot"></div></a>
+    <a href="#section-11" class="nav-dot-container" data-section="10"><span class="nav-label">John Keats</span><div class="nav-dot"></div></a>
+    <a href="#section-12" class="nav-dot-container" data-section="11"><span class="nav-label">Frank Lloyd Wright</span><div class="nav-dot"></div></a>
+    <a href="#section-13" class="nav-dot-container" data-section="12"><span class="nav-label">Pythagoras</span><div class="nav-dot"></div></a>
+    <a href="#section-14" class="nav-dot-container" data-section="13"><span class="nav-label">Henry David Thoreau</span><div class="nav-dot"></div></a>
+    <a href="#section-15" class="nav-dot-container" data-section="14"><span class="nav-label">Henry David Thoreau</span><div class="nav-dot"></div></a>
+  </nav>
+
+  <!-- Main Scrollable Section Tracks -->
+  <main class="main-scroll-container" id="scroll-container">
+    
+    <!-- Section 1 -->
+    <section class="scroll-section" id="section-1">
+      <div class="section-content">
+        <blockquote class="quote-text">"In every walk with nature, one receives far more than they seek."</blockquote>
+        <div class="quote-author">John Muir</div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="scroll-section" id="section-2">
+      <div class="section-content">
+        <blockquote class="quote-text">"Look deep into nature, and then you will understand everything better."</blockquote>
+        <div class="quote-author">Albert Einstein</div>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="scroll-section" id="section-3">
+      <div class="section-content">
+        <blockquote class="quote-text">"To sit in the shade on a fine day, and look upon verdure, is the most perfect refreshment."</blockquote>
+        <div class="quote-author">Jane Austen</div>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="scroll-section" id="section-4">
+      <div class="section-content">
+        <blockquote class="quote-text">"The clearest way into the Universe is through a forest wilderness."</blockquote>
+        <div class="quote-author">John Muir</div>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="scroll-section" id="section-5">
+      <div class="section-content">
+        <blockquote class="quote-text">"Nature does not hurry, yet everything is accomplished."</blockquote>
+        <div class="quote-author">Lao Tzu</div>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="scroll-section" id="section-6">
+      <div class="section-content">
+        <blockquote class="quote-text">"Choose only one master—nature."</blockquote>
+        <div class="quote-author">Rembrandt</div>
+      </div>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="scroll-section" id="section-7">
+      <div class="section-content">
+        <blockquote class="quote-text">"The earth has music for those who listen."</blockquote>
+        <div class="quote-author">William Shakespeare</div>
+      </div>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="scroll-section" id="section-8">
+      <div class="section-content">
+        <blockquote class="quote-text">"Adopt the pace of nature: her secret is patience."</blockquote>
+        <div class="quote-author">Ralph Waldo Emerson</div>
+      </div>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="scroll-section" id="section-9">
+      <div class="section-content">
+        <blockquote class="quote-text">"Colors are the smiles of nature."</blockquote>
+        <div class="quote-author">Leigh Hunt</div>
+      </div>
+    </section>
+
+    <!-- Section 10 -->
+    <section class="scroll-section" id="section-10">
+      <div class="section-content">
+        <blockquote class="quote-text">"Time spent among trees is never wasted time."</blockquote>
+        <div class="quote-author">Katrina Mayer</div>
+      </div>
+    </section>
+
+    <!-- Section 11 -->
+    <section class="scroll-section" id="section-11">
+      <div class="section-content">
+        <blockquote class="quote-text">"The poetry of the earth is never dead."</blockquote>
+        <div class="quote-author">John Keats</div>
+      </div>
+    </section>
+
+    <!-- Section 12 -->
+    <section class="scroll-section" id="section-12">
+      <div class="section-content">
+        <blockquote class="quote-text">"Study nature, love nature, stay close to nature. It will never fail you."</blockquote>
+        <div class="quote-author">Frank Lloyd Wright</div>
+      </div>
+    </section>
+
+    <!-- Section 13 -->
+    <section class="scroll-section" id="section-13">
+      <div class="section-content">
+        <blockquote class="quote-text">"Leave the road, take the trails."</blockquote>
+        <div class="quote-author">Pythagoras</div>
+      </div>
+    </section>
+
+    <!-- Section 14 -->
+    <section class="scroll-section" id="section-14">
+      <div class="section-content">
+        <blockquote class="quote-text">"Heaven is under our feet as well as over our heads."</blockquote>
+        <div class="quote-author">Henry David Thoreau</div>
+      </div>
+    </section>
+
+    <!-- Section 15 -->
+    <section class="scroll-section" id="section-15">
+      <div class="section-content">
+        <blockquote class="quote-text">"Live in each season as it passes; breathe the air, drink the drink, taste the fruit."</blockquote>
+        <div class="quote-author">Henry David Thoreau</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hqPoster = document.getElementById('hq-poster');
+      const blurPlaceholder = document.getElementById('blur-placeholder');
+      const bgContainer = document.getElementById('bg-media-container');
+      const quotes = document.querySelectorAll('.quote-text');
+      const authors = document.querySelectorAll('.quote-author');
+      const navItems = document.querySelectorAll('.nav-dot-container');
+      const progressBar = document.getElementById('progress-bar');
+      const sections = document.querySelectorAll('.scroll-section');
+
+      // 1. Accessibility check
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 2. Poster Loading Transition
+      if (hqPoster) {
+        if (hqPoster.complete) {
+          onPosterLoaded();
+        } else {
+          hqPoster.addEventListener('load', onPosterLoaded);
+        }
+      }
+
+      function onPosterLoaded() {
+        hqPoster.classList.add('loaded');
+        setTimeout(() => {
+          if (blurPlaceholder) blurPlaceholder.style.opacity = '0';
+        }, 500);
+      }
+
+      // 3. Dynamic Word Splitting for Scroll opacity focus
+      quotes.forEach(quote => {
+        const text = quote.textContent.trim();
+        // Clear nodes
+        quote.innerHTML = '';
+        
+        // Split by words, preserving space
+        const words = text.split(/\s+/);
+        words.forEach((word, idx) => {
+          const span = document.createElement('span');
+          span.className = 'word-span';
+          span.textContent = word;
+          quote.appendChild(span);
+          
+          // Add spacing space between words
+          if (idx < words.length - 1) {
+            quote.appendChild(document.createTextNode(' '));
+          }
+        });
+      });
+
+      // Get all generated word spans
+      const wordSpans = document.querySelectorAll('.word-span');
+
+      // 4. Video scrubbing and scrolling animations setup
+      let video = null;
+      let targetTime = 0;
+      let currentTime = 0;
+      const ease = 0.05; // Dampened easing for slower, more cinematic scrubbing
+
+      if (!prefersReducedMotion) {
+        // Instantiate scroll-optimized video dynamically
+        video = document.createElement('video');
+        video.className = 'video-background';
+        video.id = 'bg-video';
+        video.muted = true;
+        video.playsInline = true;
+        video.loop = false; // Scroll controls loop manually or limits boundaries
+        video.preload = 'auto';
+
+        video.addEventListener('loadedmetadata', () => {
+          console.log("Scroll video metadata loaded. Duration:", video.duration);
+          // Briefly play and pause video to initialize decoder
+          video.play().then(() => {
+            video.pause();
+            video.classList.add('playing');
+          });
+        });
+
+        video.src = 'background_scrub.mp4';
+        bgContainer.appendChild(video);
+      }
+
+      // 5. High-Performance Animation Loop (RequestAnimationFrame)
+      let scrollFraction = 0;
+      let currentScale = 1.08;
+      let targetScale = 1.08;
+      let currentTranslateY = 0;
+      let targetTranslateY = 0;
+
+      function render() {
+        // Video scrub interpolation
+        if (video && video.duration) {
+          currentTime += (targetTime - currentTime) * ease;
+          // Clamp time
+          if (currentTime < 0) currentTime = 0;
+          if (currentTime > video.duration - 0.05) currentTime = video.duration - 0.05;
+          video.currentTime = currentTime;
+        }
+
+        // Parallax transform calculations
+        currentScale += (targetScale - currentScale) * ease;
+        currentTranslateY += (targetTranslateY - currentTranslateY) * ease;
+        if (!prefersReducedMotion) {
+          bgContainer.style.transform = `scale(${currentScale}) translateY(${currentTranslateY}px)`;
+        }
+
+        // Highlight words crossing the center line of viewport
+        const centerPoint = window.innerHeight / 2;
+        const maxDistance = window.innerHeight * 0.45; // Highlight boundary height (wider range)
+        const centerPlateau = 160; // Keep text 100% white within 160px of screen center for easy reading
+
+        wordSpans.forEach(span => {
+          const rect = span.getBoundingClientRect();
+          const spanCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(centerPoint - spanCenter);
+
+          let opacity = 0.22;
+          let isHighlighted = false;
+
+          if (dist <= centerPlateau) {
+            opacity = 1.0;
+            isHighlighted = true;
+          } else {
+            const fadeDist = dist - centerPlateau;
+            const fadeRange = maxDistance - centerPlateau;
+            if (fadeDist < fadeRange) {
+              const ratio = 1 - (fadeDist / fadeRange);
+              const clampedRatio = Math.max(0, Math.min(1, ratio));
+              opacity = 0.22 + 0.78 * Math.pow(clampedRatio, 1.5);
+              if (clampedRatio > 0.35) {
+                isHighlighted = true;
+              }
+            }
+          }
+
+          span.style.color = `rgba(255, 255, 255, ${opacity})`;
+          if (isHighlighted) {
+            span.classList.add('highlighted');
+          } else {
+            span.classList.remove('highlighted');
+          }
+        });
+
+        // Highlight authors based on their visibility
+        authors.forEach(author => {
+          const rect = author.getBoundingClientRect();
+          const authorCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(centerPoint - authorCenter);
+
+          // Authors highlight in tandem with the quote center zone
+          if (dist < centerPlateau + 80) {
+            author.classList.add('highlighted');
+          } else {
+            author.classList.remove('highlighted');
+          }
+        });
+
+        requestAnimationFrame(render);
+      }
+
+      // Start RAF loop
+      requestAnimationFrame(render);
+
+      // 6. Scroll & Resize Events
+      function onScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        
+        scrollFraction = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+
+        // Update progress bar
+        progressBar.style.width = `${scrollFraction * 100}%`;
+
+        // Update scroll target time for video
+        if (video && video.duration) {
+          targetTime = scrollFraction * video.duration;
+        }
+
+        // Background Parallax calculation
+        targetScale = 1.08 - (0.05 * scrollFraction);
+        targetTranslateY = scrollFraction * -25; // Moves upwards on scroll
+
+        // Active Nav Dots and HUD management: Find the section whose center is closest to viewport center
+        let currentSectionIdx = 0;
+        let minDistance = Infinity;
+        sections.forEach((sec, idx) => {
+          const rect = sec.getBoundingClientRect();
+          const secCenter = rect.top + rect.height / 2;
+          const distToCenter = Math.abs((window.innerHeight / 2) - secCenter);
+          if (distToCenter < minDistance) {
+            minDistance = distToCenter;
+            currentSectionIdx = idx;
+          }
+        });
+
+        navItems.forEach((nav, idx) => {
+          if (idx === currentSectionIdx) {
+            nav.classList.add('active');
+          } else {
+            nav.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      
+      // Call initial scroll setup
+      onScroll();
+
+      // 7. Navigation Dots Click handling (Smoothly scroll the center of the section to the center of the viewport)
+      navItems.forEach(nav => {
+        nav.addEventListener('click', (e) => {
+          e.preventDefault();
+          const sectionId = nav.getAttribute('href');
+          const targetSection = document.querySelector(sectionId);
+          if (targetSection) {
+            const targetScrollTop = targetSection.offsetTop + (targetSection.offsetHeight / 2) - (window.innerHeight / 2);
+            window.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

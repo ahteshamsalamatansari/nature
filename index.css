@@ -1,0 +1,312 @@
+/* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-bg: #050505;
+  --color-text-dim: rgba(255, 255, 255, 0.22);
+  --color-text-active: #ffffff;
+  --color-accent: #d6c59a;
+  --color-accent-light: #e8d8b5;
+  --transition-smooth: 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  --transition-normal: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-active);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scroll Container */
+.main-scroll-container {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+
+/* Immersive background wrapper */
+.background-media-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.background-media-fixed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* Base64 Tiny Blur Background */
+.blur-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(40px);
+  transform: scale(1.1);
+  z-index: 2;
+  transition: opacity 1s var(--transition-normal);
+}
+
+/* High Quality Poster Image */
+.poster-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 1.5s var(--transition-normal);
+}
+
+.poster-image.loaded {
+  opacity: 1;
+}
+
+/* Video Layer */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 1.2s var(--transition-normal);
+}
+
+.video-background.playing {
+  opacity: 1;
+}
+
+/* Fullscreen Scroll Sections */
+.scroll-section {
+  width: 100vw;
+  height: 180vh;
+  min-height: 180vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* Section content */
+.section-content {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  transform: translateZ(0); /* Hardware accelerate text */
+}
+
+/* Word-by-word opacity scrub */
+.quote-text {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text-active);
+  font-size: 32px; /* Mobile */
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+  margin-bottom: 2rem;
+}
+
+.word-span {
+  display: inline-block;
+  color: var(--color-text-dim);
+  transition: color var(--transition-smooth), transform var(--transition-smooth);
+  will-change: color, transform;
+  margin: 0 0.18em;
+}
+
+.word-span.highlighted {
+  color: var(--color-text-active);
+  transform: translateY(-3px);
+}
+
+/* Subtle Author Styling */
+.quote-author {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.3;
+  transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+  transform: translateY(10px);
+}
+
+.quote-author.highlighted {
+  opacity: 0.85;
+  transform: translateY(0);
+}
+
+/* Minimal Vertical Navigation */
+.minimal-nav {
+  position: fixed;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: auto;
+}
+
+.nav-dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  group: true;
+}
+
+.nav-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.3);
+  transition: color var(--transition-normal), transform var(--transition-normal);
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+}
+
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  transition: background-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.nav-dot-container:hover .nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-accent-light);
+}
+
+.nav-dot-container:hover .nav-dot {
+  background-color: var(--color-accent);
+  transform: scale(1.5);
+}
+
+.nav-dot-container.active .nav-dot {
+  background-color: var(--color-text-active);
+  transform: scale(1.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.nav-dot-container.active .nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-text-active);
+}
+
+/* Scroll Progress Header Line (extremely sleek indicator at top) */
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.05);
+  z-index: 101;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  transition: width 0.1s ease-out;
+}
+
+/* Responsive Sizing */
+@media (min-width: 600px) {
+  .quote-text {
+    font-size: 50px;
+  }
+  .quote-author {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .quote-text {
+    font-size: 72px;
+    line-height: 1.15;
+  }
+  .quote-author {
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+  .word-span {
+    color: var(--color-text-active) !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .quote-author {
+    opacity: 0.9 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .background-media-fixed {
+    transform: none !important;
+    transition: none !important;
+  }
+  .blur-placeholder, .poster-image, .video-background {
+    transition: none !important;
+  }
+}
