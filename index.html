@@ -38,12 +38,20 @@
       aria-hidden="true"
     >
 
-    <!-- Dynamic Scrubbing Image Frame (Starts with poster fallback, preloaded with Base64 frames) -->
+    <!-- Dynamic Double-Buffered Image Frames for seamless cross-fade blending -->
     <img 
-      id="scrub-image"
-      class="video-background" 
+      id="scrub-image-1"
+      class="scrub-frame video-background" 
       src="poster.jpg" 
       alt="Cinematic nature landscape"
+      style="z-index: 3; opacity: 1;"
+    >
+    <img 
+      id="scrub-image-2"
+      class="scrub-frame video-background" 
+      src="poster.jpg" 
+      alt="Cinematic nature landscape"
+      style="z-index: 4; opacity: 0;"
     >
   </div>
 
@@ -245,8 +253,9 @@
       // Get all generated word spans
       const wordSpans = document.querySelectorAll('.word-span');
 
-      // 4. Image sequence preloader and target definitions
-      const scrubImage = document.getElementById('scrub-image');
+      // 4. Image sequence preloader and double-buffered target definitions
+      const scrubImage1 = document.getElementById('scrub-image-1');
+      const scrubImage2 = document.getElementById('scrub-image-2');
       let targetFrame = 0;
       let currentFrame = 0;
       const ease = 0.05; // Dampened easing for smooth stop-motion parallax transitions
@@ -261,8 +270,9 @@
         });
         
         // Once frames are initialized in memory, fade in the main Canvas/Image
-        if (scrubImage) {
-          scrubImage.classList.add('playing');
+        if (scrubImage1 && scrubImage2) {
+          scrubImage1.classList.add('playing');
+          scrubImage2.classList.add('playing');
           // Hide blur placeholder
           setTimeout(() => {
             if (blurPlaceholder) blurPlaceholder.style.opacity = '0';
@@ -278,14 +288,28 @@
       let targetTranslateY = 0;
 
       function render() {
-        // Image frame scrub interpolation: Smoothly animate the target frame index
+        // Image frame scrub interpolation: Seamlessly cross-fade two adjacent frames
         if (window.videoFrames && window.videoFrames.length > 0 && !prefersReducedMotion) {
           currentFrame += (targetFrame - currentFrame) * ease;
-          const activeIndex = Math.min(window.videoFrames.length - 1, Math.max(0, Math.round(currentFrame)));
           
-          const targetSrc = window.videoFrames[activeIndex];
-          if (scrubImage && scrubImage.getAttribute('src') !== targetSrc) {
-            scrubImage.setAttribute('src', targetSrc);
+          const frame1 = Math.floor(currentFrame);
+          const frame2 = Math.min(window.videoFrames.length - 1, frame1 + 1);
+          const blend = currentFrame - frame1; // fractional component (0.0 to 1.0)
+          
+          const idx1 = Math.min(window.videoFrames.length - 1, Math.max(0, frame1));
+          const idx2 = Math.min(window.videoFrames.length - 1, Math.max(0, frame2));
+          
+          // Swap image sources dynamically without blocking thread
+          if (scrubImage1 && scrubImage1.getAttribute('src') !== window.videoFrames[idx1]) {
+            scrubImage1.setAttribute('src', window.videoFrames[idx1]);
+          }
+          if (scrubImage2 && scrubImage2.getAttribute('src') !== window.videoFrames[idx2]) {
+            scrubImage2.setAttribute('src', window.videoFrames[idx2]);
+          }
+          
+          // Set opacity of the top layer to smoothly cross-fade between frame 1 and frame 2
+          if (scrubImage2) {
+            scrubImage2.style.opacity = blend;
           }
         }
 
